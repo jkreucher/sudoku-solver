@@ -1,6 +1,7 @@
 #include <stdio.h>
 
-// sudoku to solve
+// example sudoku
+// this will be overwritten by sudoku_input()
 // zeros are blanks
 int sudoku[9][9] = {
 	0,3,7,1,0,6,4,9,8,
@@ -74,8 +75,7 @@ void sudoku_print() {
 }
 
 
-// this function sets a number at position x,y
-// and checks if the change is valid
+// this function checks if a number at x,y is valid
 int is_valid(int x, int y) {
 	// check horizontal line
 	int mask = 0;
@@ -130,22 +130,25 @@ int is_valid(int x, int y) {
 int solve() {
 	for(int y=0; y<9; y++) {
 		for(int x=0; x<9; x++) {
-			// check if we are at the next blank cell
+			// skip to the next blank cell
 			if(sudoku[y][x] == 0) {
 				// try every number
 				for(int num=1; num<=9; num++) {
 					// write number in blank cell and check if number is valid
 					sudoku[y][x] = num;
 					if(is_valid(x, y) == 0) {
+						// if number works, solve next blank cell
 						solve();
 					}
 					sudoku[y][x] = 0;
 				}
+				// tried every number, go back to previous cell
 				return 1;
 			}
 		}
 	}
-	// found a solution
+	// filled in every cell
+	// so we found a solution
 	printf("Solution: \n");
 	sudoku_print();
 	printf("\n");
