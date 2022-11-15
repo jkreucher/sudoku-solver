@@ -24,14 +24,12 @@ int solve();
 
 // main function
 int main() {
+	sudoku_input();
 
-	//sudoku_input();
-	//printf("Solving Sudoku...");
-	//solve();
-	//printf("\nDone\n");
-
+	printf("Sudoku to solve:\n");
 	sudoku_print();
 	printf("\n");
+
 	solve();
 
 	return 0;
@@ -64,7 +62,7 @@ void sudoku_print() {
 				printf(" ");
 			
 			// print number or blank if the number is zero
-			if(sudoku[9*y+x])
+			if(sudoku[y][x])
 				printf("%d", sudoku[y][x]);
 			else
 				printf(" ");
